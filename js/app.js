@@ -12,43 +12,84 @@ const loadAI = () => {
         }
         newsCard.innerHTML = `
           <div class="flex flex-col lg:flex-row border mb-3 lg:gap-8 py-2 lg:rounded-xl px-4">
-    <img src="${post.image}" class="w-16 h-16 lg:w-16 lg:h-16 rounded-full" alt="" />
-    <div class="mt-2 lg:mt-0">
-        <div class="flex flex-col lg:flex-row lg:gap-3">
-            <p class="font-semibold">#<span>${post.category}</span></p>
-            <p class="font-semibold">Author:${post?.author?.name}</p>
-        </div>
-        <h2 class="text-3xl font-bold">${post.title}</h2>
-        <p>${post.description}</p>
-        <div class="border-t border-dotted border-gray-400 my-4"></div>
-        <div class="flex justify-between">
-            <div class="flex lg:flex-row flex-col gap-4">
-                <span class="flex items-center gap-3">
+            <img src="${post.image}" class="w-16 h-16 lg:w-16 lg:h-16 rounded-full" alt="" />
+            <div class="mt-2 lg:mt-0">
+              <div class="flex flex-col lg:flex-row lg:gap-3">
+                <p class="font-semibold">#<span>${post.category}</span></p>
+                <p class="font-semibold">Author:${post?.author?.name}</p>
+              </div>
+              <h2 class="text-3xl font-bold mb-2">${post.title}</h2>
+              <p>${post.description}</p>
+              <div class="border-t border-dotted border-gray-400 my-4"></div>
+              <div class="flex justify-between">
+                <div class="flex lg:flex-row flex-col gap-4">
+                  <span class="flex items-center gap-3">
                     <i class="far fa-eye"></i>
                     <span>${post.view_count}</span>
-                </span>
-                <span class="flex items-center gap-3">
+                  </span>
+                  <span class="flex items-center gap-3">
                     <i class="far fa-comment"></i>
                     <span>${post.comment_count}</span>
-                </span>
-                <span class="flex items-center gap-3">
+                  </span>
+                  <span class="flex items-center gap-3">
                     <i class="far fa-clock"></i>
                     <span>${post.posted_time} min</span>
+                  </span>
+                </div>
+                <span id="message" class="p-1 rounded-full bg-green-500">
+                  <i class="far fa-envelope-open"></i>
                 </span>
+              </div>
             </div>
-            <span>
-                <i class="far fa-envelope-open bg-green-500"></i>
-            </span>
-        </div>
-    </div>
-</div>
-
+          </div>
         `;
 
         document.getElementById("news-container").appendChild(newsCard);
       });
+
+      // Attaching event listener to the 'message' element
+      const messageIcon = document.getElementById("message");
+      messageIcon.addEventListener("click", showMessage);
     })
     .catch((err) => console.log(err));
+};
+
+// Function to show successful message
+const showMessage = (event) => {
+  // Retrieve the clicked news item
+  const newsCard = event.target.closest('.news-card');
+
+  // Retrieve title and view_count from the news item
+  const title = newsCard.querySelector('h2').textContent;
+  const viewCount = newsCard.querySelector('.fa-eye + span').textContent;
+
+  // Check if the news table exists, if not create it
+  let newsTable = document.getElementById("news-table");
+  if (!newsTable) {
+    newsTable = document.createElement('div');
+    newsTable.id = 'news-table';
+    document.body.appendChild(newsTable);
+  }
+
+  // Update the content of the "news table" element
+  newsTable.innerHTML += `
+    <div class="p-4 bg-gray-200 rounded-lg">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-xl text-black">Title</th>
+            <th class="text-black">View Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-xl">${title}</td>
+            <td>${viewCount}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
 };
 
 loadAI();
