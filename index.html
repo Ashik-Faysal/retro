@@ -18,7 +18,7 @@
   </head>
   <body class="container mx-auto">
     <!-- Navbar  -->
-    <nav class="bg-gray-800 p-4">
+        <nav class="bg-gray-800 p-4">
       <div class="container mx-auto flex justify-between items-center">
         <div>
           <a href="#" class="text-white font-bold text-xl">Retro</a>
@@ -113,18 +113,29 @@
         </table>
       </div>
     </section>
-    <!-- Let's Discuss -->
-    <section class="my-8">
-      <div class="text-center">
-        <h1 class=" text-6xl font-extrabold mb-4">Let's Discuss</h1>
+
+    <!-- Let's Discuss Post -->
+    <section class="my-8 py-8 bg-white text-black">
+      <div class="text-center mb-4">
+        <h1 class="text-6xl font-extrabold mb-4">Let's Discuss</h1>
         <p class="font-bold">
           Yes, you can run unit tests and view t he results directly within the
           app. The integrated testing features allow for a streamlined
         </p>
       </div>
-      <div id="dynamic">
-
+      <div id="news-container" class="border p-4 w-3/5 mt-8">
+       
       </div>
+    </section>
+    <section class="my-8 py-8 bg-white text-black mx-auto">
+      <div class="text-center">
+        <h1 class="text-6xl font-extrabold mb-4">Latest Post</h1>
+        <p class="font-bold">
+          Yes, you can run unit tests and view t he results directly within the
+          app. The integrated testing features allow for a streamlined
+        </p>
+      </div>
+      <div id="dynamic" class="md:grid grid-cols-3 md:pl-4 gap-4"></div>
     </section>
 
     <script src="./js/app.js"></script>
