@@ -47,31 +47,25 @@ const loadAI = () => {
         document.getElementById("news-container").appendChild(newsCard);
       });
 
-      // Attaching event listener to the 'message' element
       const messageIcon = document.getElementById("message");
       messageIcon.addEventListener("click", showMessage);
     })
     .catch((err) => console.log(err));
 };
 
-// Function to show successful message
 const showMessage = (event) => {
-  // Retrieve the clicked news item
-  const newsCard = event.target.closest('.news-card');
+  const newsCard = event.target.closest(".news-card");
 
-  // Retrieve title and view_count from the news item
-  const title = newsCard.querySelector('h2').textContent;
-  const viewCount = newsCard.querySelector('.fa-eye + span').textContent;
+  const title = newsCard.querySelector("h2").textContent;
+  const viewCount = newsCard.querySelector(".fa-eye + span").textContent;
 
-  // Check if the news table exists, if not create it
   let newsTable = document.getElementById("news-table");
   if (!newsTable) {
-    newsTable = document.createElement('div');
-    newsTable.id = 'news-table';
+    newsTable = document.createElement("div");
+    newsTable.id = "news-table";
     document.body.appendChild(newsTable);
   }
 
-  // Update the content of the "news table" element
   newsTable.innerHTML += `
     <div class="p-4 bg-gray-200 rounded-lg">
       <table class="table">
@@ -107,7 +101,6 @@ const fetchLatestPosts = async () => {
   }
 };
 
-// Define a function to generate HTML for each post
 const generatePostHTML = (post) => {
   return `
  <div class="card w-96 bg-gray-200 shadow-xl">
@@ -142,21 +135,17 @@ const generatePostHTML = (post) => {
   `;
 };
 
-// Define a function to render posts on the page
 async function renderPosts() {
   const dynamicDiv = document.getElementById("dynamic");
 
-  // Fetch latest posts
   const latestPosts = await fetchLatestPosts();
 
-  // Generate HTML for each post and append to the dynamic div
   latestPosts.forEach((post) => {
     const postHTML = generatePostHTML(post);
     dynamicDiv.insertAdjacentHTML("beforeend", postHTML);
   });
 }
 
-// Call the renderPosts function when the DOM content is loaded
 document.addEventListener("DOMContentLoaded", () => {
   renderPosts();
 });
